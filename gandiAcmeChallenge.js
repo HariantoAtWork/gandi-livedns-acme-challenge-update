@@ -6,9 +6,12 @@ if (!APIKEY)
 	try {
 		APIKEY = fs.readFileSync('APIKEY')
 	} catch (error) {
-		console.error(
-			'ERROR: APIKEY undefined\n\nEXAMPLE: create a file APIKEY with GANDI Apikey\nEXAMPLE: APIKEY=GANDIAPIKEYHERE ./gandiAcmeChallenge.js domain'
-		)
+		console.error(`
+ERROR: APIKEY undefined
+ - Example: create a file APIKEY with GANDI Apikey
+ - Example GET: APIKEY=GANDIAPIKEYHERE ./gandiAcmeChallenge.js domain.ext
+ - Example PUT: APIKEY=GANDIAPIKEYHERE ./gandiAcmeChallenge.js domain.ext acmeChallenge1 acmeChallenge2
+`)
 	}
 if (!APIKEY) process.exit(1)
 
@@ -18,7 +21,6 @@ const paL = processArguments.length
 if (!(paL === 1 || paL == 3)) {
 	console.log(`
 Gandi API v5
-
  - Example GET: ./gandiAcmeChallenge.js sylo.space
  - Example PUT: ./gandiAcmeChallenge.js sylo.space KXXFZfPGXCJF9fBepbrPvy2DLOTplL7Km-qs-fWpg4g RXXydCOEbgZRVThTKvB6HkrLfX1VR8T3_5CVV69CQYo
 `)

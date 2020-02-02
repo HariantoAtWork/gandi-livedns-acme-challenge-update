@@ -13,12 +13,14 @@ if (!APIKEY)
 if (!APIKEY) process.exit(1)
 
 const processArguments = process.argv.slice(2)
-const plN = processArguments.length
+const paL = processArguments.length
 
-if (!(plN === 1 || plN == 3)) {
+if (!(paL === 1 || paL == 3)) {
 	console.log(`
-Example GET: ./gandiAcmeChallenge.js sylo.space
-Example PUT: ./gandiAcmeChallenge.js sylo.space KXXFZfPGXCJF9fBepbrPvy2DLOTplL7Km-qs-fWpg4g RXXydCOEbgZRVThTKvB6HkrLfX1VR8T3_5CVV69CQYo
+Gandi API v5
+
+ - Example GET: ./gandiAcmeChallenge.js sylo.space
+ - Example PUT: ./gandiAcmeChallenge.js sylo.space KXXFZfPGXCJF9fBepbrPvy2DLOTplL7Km-qs-fWpg4g RXXydCOEbgZRVThTKvB6HkrLfX1VR8T3_5CVV69CQYo
 `)
 	process.exit()
 }
@@ -35,7 +37,7 @@ const axiosData = require('./lib/axiosData'),
 		headers
 	}
 
-switch (plN) {
+switch (paL) {
 	case 3:
 		const rrset_values = processArguments.slice(1).map(val => `"${val}"`)
 		axiosData(getAcmeChallengeTxt)

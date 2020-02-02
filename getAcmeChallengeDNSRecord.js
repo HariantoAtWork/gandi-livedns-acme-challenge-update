@@ -21,7 +21,7 @@ if (processArguments.length !== 1) {
 }
 const fqdn = processArguments[0]
 
-const axiosData = require('./axiosData'),
+const axiosData = require('./lib/axiosData'),
 	headers = {
 		'Authorization': `Apikey ${APIKEY}`
 	},

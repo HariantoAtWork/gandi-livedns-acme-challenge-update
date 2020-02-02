@@ -28,7 +28,7 @@ console.log({
 	rrset_values
 })
 
-const axiosData = require('./axiosData'),
+const axiosData = require('./lib/axiosData'),
 	headers = {
 		'Authorization': `Apikey ${APIKEY}`
 	},

@@ -1,0 +1,7 @@
+.vscode
+.git
+.gitignore
+.nvmrc
+APIKEY
+package-lock.json
+README.md

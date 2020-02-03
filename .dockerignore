@@ -2,6 +2,7 @@
 .git
 .gitignore
 .nvmrc
+docker-*.sh
 APIKEY
 package-lock.json
 README.md

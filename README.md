@@ -97,5 +97,31 @@ Default record value will be
     '"acmeChallenge2"'
   ]
 }
+```
 
+## Run Docker
+
+Use docker to run this, before that pull the repo first
+
+```bash
+docker pull harianto/gandi-acme-challenge
+```
+
+```bash
+# OPTION 1:
+docker run -v $PWD/APIKEY:/home/node/app/APIKEY:ro --rm -it harianto/gandi-acme-challenge
+# OPTION 2:
+docker run -e APIKEY=GANDI_API_KEY --rm -it harianto/gandi-acme-challenge
+```
+
+### METHOD: GET domain.ext
+
+```bash
+docker run -v $PWD/APIKEY:/home/node/app/APIKEY:ro --rm -it harianto/gandi-acme-challenge domain.ext
+```
+
+### METHOD: PUT domain.ext acmeChallenge1 acmeChallenge2
+
+```bash
+docker run -v $PWD/APIKEY:/home/node/app/APIKEY:ro --rm -it harianto/gandi-acme-challenge domain.ext acmeChallenge1 acmeChallenge2
 ```

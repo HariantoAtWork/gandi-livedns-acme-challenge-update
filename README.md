@@ -7,7 +7,7 @@ Terminal commands to update your Gandi API v5 LiveDNS records for Let´s Encrypt
 
 ## RUN NODE SCRIPT
 
-## Step #1
+### Step #1
 
 Before you can run this, you need to install `node_modules`.
 This was build on (See NODE and NPM versions above)
@@ -16,7 +16,7 @@ This was build on (See NODE and NPM versions above)
 npm i
 ```
 
-## Step #2
+### Step #2
 
 Get your hands on _Gandi Apikey_
 

@@ -42,18 +42,17 @@ const axiosData = require('./lib/axiosData'),
 switch (paL) {
 	case 3:
 		const rrset_values = processArguments.slice(1).map(val => `"${val}"`)
-		axiosData(getAcmeChallengeTxt)
-			.then(({ data }) => data)
-			.then(record => ({
-				...record,
-				...{ rrset_values }
-			}))
-			.then(mutatedRecord =>
-				axiosData({
-					...getAcmeChallengeTxt,
-					...{ method: 'put', data: mutatedRecord }
-				})
-			)
+
+		axiosData({
+			...getAcmeChallengeTxt,
+			...{
+				method: 'put',
+				data: {
+					rrset_ttl: 1800,
+					rrset_values
+				}
+			}
+		})
 			.then(({ data }) => data)
 			.then(console.log.bind(console))
 		break

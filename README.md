@@ -64,14 +64,61 @@ ERROR: {
 }
 ```
 
-### METHOD: PUT domain.ext acmeChallenge1 acmeChallenge2
+### METHOD: GET domain.ext -r subdomain
 
-This will create record even it's not exist or overwrite values if exist
+> `-r`: use this for subdomains, to read multiple subdomains: `sub1,sub2,othersub3`
 
 Run the script
 
 ```bash
-./gandiAcmeChallenge.js domain.ext acmeChallenge1 acmeChallenge2
+./gandiAcmeChallenge.js domain.ext -r subdomain
+```
+
+On SUCCESS
+
+```js
+{
+  rrset_type: 'TXT',
+  rrset_ttl: 1800,
+  rrset_name: '_acme-challenge',
+  rrset_href: 'https://api.gandi.net/v5/livedns/domains/domain.ext/records/_acme-challenge/TXT',
+  rrset_values: [
+    '"acmeChallenge1"',
+    '"acmeChallenge2"'
+  ]
+},
+{
+  rrset_type: 'TXT',
+  rrset_ttl: 1800,
+  rrset_name: '_acme-challenge',
+  rrset_href: 'https://api.gandi.net/v5/livedns/domains/domain.ext/records/_acme-challenge.subdomain/TXT',
+  rrset_values: [
+    '"acmeChallenge1"',
+    '"acmeChallenge2"'
+  ]
+}
+```
+
+On FAIL
+
+```js
+ERROR: {
+  code: 404,
+  message: "Can't find the DNS record _acme-challenge.subdomain/TXT in the zone",
+  object: 'dns-record',
+  cause: 'Not Found'
+}
+```
+
+### METHOD: PUT domain.ext -w acmeChallenge1 acmeChallenge2
+
+This will create record even it's not exist or overwrite values if exist
+> `-w`: Enable this to PUT keys
+
+Run the script
+
+```bash
+./gandiAcmeChallenge.js domain.ext -w acmeChallenge1 acmeChallenge2
 ```
 
 On SUCCESS
@@ -95,6 +142,52 @@ Default record value will be
   rrset_values: [
     '"acmeChallenge1"',
     '"acmeChallenge2"'
+  ]
+}
+```
+
+### METHOD: PUT domain.ext -w acmeChallenge1 acmeChallenge2 subdomain:acmeChallenge3
+
+This will create record even it's not exist or overwrite values if exist
+> `-w`: Enable this to PUT keys
+> `subdomain:acmeChallenge`: use `:` for subdomains: `_acme-challenge.subdomain`
+
+Run the script
+
+```bash
+./gandiAcmeChallenge.js domain.ext -w acmeChallenge1 acmeChallenge2 subdomain:acmeChallenge3
+```
+
+On SUCCESS
+
+```js
+{
+	message: 'DNS Record Created'
+}
+```
+
+Note:
+
+Default record value will be
+
+```js
+{
+  rrset_type: 'TXT',
+  rrset_ttl: 1800,
+  rrset_name: '_acme-challenge',
+  rrset_href: 'https://api.gandi.net/v5/livedns/domains/domain.ext/records/_acme-challenge/TXT',
+  rrset_values: [
+    '"acmeChallenge1"',
+    '"acmeChallenge2"'
+  ]
+},
+{
+  rrset_type: 'TXT',
+  rrset_ttl: 1800,
+  rrset_name: '_acme-challenge',
+  rrset_href: 'https://api.gandi.net/v5/livedns/domains/domain.ext/records/_acme-challenge.subdomain/TXT',
+  rrset_values: [
+    '"acmeChallenge3"'
   ]
 }
 ```

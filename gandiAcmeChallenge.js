@@ -112,28 +112,20 @@ const axiosData = requestConfig =>
 				write = argv.w || argv.write,
 				fqdn = argv._[0],
 				keys = argv._.slice(1),
+				push = (object, value) =>
+					object && Array.isArray(object)
+						? object.push(value) && object
+						: [value],
 				domain = keys.reduce((acc, item) => {
 					if (item.includes(':')) {
 						let [key, value] = item.split(':')
 						if (!String(key).length || !String(value).length) return acc
 
 						let object = acc[key]
-						acc[key] =
-							object && Array.isArray(object)
-								? (val => {
-										object.push(val)
-										return object
-								  })(value)
-								: [value]
+						acc[key] = push(object, value)
 					} else {
 						let object = acc['_']
-						acc['_'] =
-							object && Array.isArray(object)
-								? (val => {
-										object.push(val)
-										return object
-								  })(item)
-								: [item]
+						acc['_'] = push(object, item)
 					}
 					return acc
 				}, {})
@@ -189,11 +181,11 @@ if (argv._.length) {
 } else {
 	console.log(`
 Gandi API v5
- - Example GET: ./gandiAcmeChallenge.js sylo.space
- - Example GET: ./gandiAcmeChallenge.js sylo.space -r oib
- - Example GET: ./gandiAcmeChallenge.js sylo.space -r oib,otherinbox
- - Example PUT: ./gandiAcmeChallenge.js sylo.space -w KXXFZfPGXCJF9fBepbrPvy2DLOTplL7Km-qs-fWpg4g RXXydCOEbgZRVThTKvB6HkrLfX1VR8T3_5CVV69CQYo
- - Example PUT: ./gandiAcmeChallenge.js sylo.space -w key-basic1 oib:key-oib1 otherinbox:key-otherinbox1 key-basic2
+ - Example GET: ./gandiAcmeChallenge domain.ext
+ - Example GET: ./gandiAcmeChallenge domain.ext -r oib
+ - Example GET: ./gandiAcmeChallenge domain.ext -r oib,otherinbox
+ - Example PUT: ./gandiAcmeChallenge domain.ext -w KXXFZfPGXCJF9fBepbrPvy2DLOTplL7Km-qs-fWpg4g RXXydCOEbgZRVThTKvB6HkrLfX1VR8T3_5CVV69CQYo
+ - Example PUT: ./gandiAcmeChallenge domain.ext -w key-basic1 oib:key-oib1 otherinbox:key-otherinbox1 key-basic2
 `)
 	process.exit()
 }
